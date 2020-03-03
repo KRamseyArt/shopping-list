@@ -61,13 +61,7 @@ function handleToggles(){
         
         let toggledItem = $(this).parentsUntil('.shopping-list').find('.shopping-item');
         
-        if (toggledItem.hasClass('shopping-item__checked')){
-            //console.log("checked item has toggle on");
-            toggledItem.removeClass('shopping-item__checked');
-        } else {
-            //console.log("checked item has toggle off");
-            toggledItem.addClass('shopping-item__checked');
-        }
+        toggledItem.toggleClass('shopping-item__checked');
         /*
         if (toggledItem.first().hasClass('.shopping-item__checked')){
             toggledItem.first().removeClass('shopping-item__checked');
