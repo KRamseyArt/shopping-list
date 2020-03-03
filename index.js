@@ -26,32 +26,49 @@ function addNewItem(item){
     if(!item){
         alert("please type an item to be added to shopping list.");
     } else {
-        alert(item + " has been added!");
-
-        let newHTML = "<li><span class=\"shopping-item\">" + item + "</span><div class=\"shopping-item-controls\"><button class=\"shopping-item-toggle\"><span class=\"button-label\">check</span></button><button class=\"shopping-item-delete\"><span class=\"button-label\">delete</span></button></div></li>";
-
-        $('.shopping-list').prepend(newHTML);
+        $('.shopping-list').prepend(`
+        <li>
+            <span class="shopping-item">` + item + `</span>
+            <div class="shopping-item-controls">
+                <button class="shopping-item-toggle">
+                    <span class="button-label">check</span>
+                </button>
+                <button class="shopping-item-delete">
+                    <span class="button-label">delete</span>
+                </button>
+            </div>
+        </li>`);
         $('#shopping-list-entry').val('');
+        
+        //alert(item + " has been added!");
     }
 }
 
 function handleDeletes(){
-    $('.shopping-item-delete').on('click', event =>{
+    $('.shopping-list').on('click', '.shopping-item-delete', function(event){
         event.preventDefault();
-
-        let deletedItem = $(event.currentTarget).parentsUntil('.shopping-list');
-        alert("Deleted: " + deletedItem.find('.shopping-item').text());
+        //  NEVER FORGET... $(this) DOES NOT WORK WITHIN ARROW FUNCTIONS!!! 
+        let deletedItem = $(this).parentsUntil('.shopping-list');
+        //alert("Deleted: " + deletedItem.find('.shopping-item').text());
 
         $(deletedItem).remove();
     })
 }
 
 function handleToggles(){
-    $('.shopping-item-toggle').on('click', event =>{
+    $('.shopping-list').on('click', '.shopping-item-toggle', function(event){
         event.preventDefault();
-
-        let toggledItem = $(event.currentTarget).parentsUntil('.shopping-list');
         
+        let toggledItem = $(this).parentsUntil('.shopping-list').find('.shopping-item');
+        
+        if (toggledItem.hasClass('shopping-item__checked')){
+            //console.log("checked item has toggle on");
+            toggledItem.removeClass('shopping-item__checked');
+        } else {
+            //console.log("checked item has toggle off");
+            toggledItem.addClass('shopping-item__checked');
+        }
+        /*
         if (toggledItem.first().hasClass('.shopping-item__checked')){
             toggledItem.first().removeClass('shopping-item__checked');
             console.log("Unchecked: " + toggledItem.find('.shopping-item').text());
@@ -59,6 +76,7 @@ function handleToggles(){
             toggledItem.first().addClass('shopping-item__checked');
             console.log("Checked: " + toggledItem.find('.shopping-item').text());
         }
+        */
         
         
     })
