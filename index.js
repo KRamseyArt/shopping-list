@@ -7,7 +7,7 @@ Must allow users to:
 */
 
 function handleShoppingList(){
-    $('#js-shopping-list-form button').on('click', event =>{
+    $('#js-shopping-list-form').submit(event =>{
         event.preventDefault();
 
         addNewItem(getUserInput());
@@ -77,8 +77,6 @@ function handleToggles(){
             console.log("Checked: " + toggledItem.find('.shopping-item').text());
         }
         */
-        
-        
     })
 }
 
